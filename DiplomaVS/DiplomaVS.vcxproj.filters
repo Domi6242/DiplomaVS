@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="raylib_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="delta_time.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="perf_log.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="perf_tracker.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="raylib_render.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shape_generator.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cairo_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cairo_render.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="direct2d_render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="direct2d_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="raylib_render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="delta_time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="perf_tracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="perf_log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cairo_render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="direct2d_render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

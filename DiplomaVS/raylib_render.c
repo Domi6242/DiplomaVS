@@ -139,9 +139,6 @@ static void test_text(RaylibObj *rt, float delta) {
 void renderFrame(RaylibObj *rt) {
     // Update and get the delta
     float frameDelta = deltaUpdate();
-    if (!isfinite(frameDelta)) {
-        frameDelta = 0;
-    }
 
     // User input
     if (IsKeyReleased(KEY_ONE)) {

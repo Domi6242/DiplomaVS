@@ -1,6 +1,8 @@
 #include "delta_time.h"
 
 #include <windows.h>
+#include <math.h>
+#include <profileapi.h>
 
 static LARGE_INTEGER d_frequency, d_start, d_end, d_counts, d_fps, d_ms;
 
@@ -13,5 +15,8 @@ float deltaUpdate() {
     QueryPerformanceCounter(&d_end);
     float delta_seconds = ((float)(d_end.QuadPart - d_start.QuadPart) / (float)d_frequency.QuadPart);
     d_start = d_end;
-    return delta_seconds;
+    if (isfinite(delta_seconds)) {
+        return delta_seconds;
+    }
+    return 0;
 }

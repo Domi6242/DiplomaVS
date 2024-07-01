@@ -161,9 +161,6 @@ void render_frame(CairoObj *rt) {
 
     // Update and get the delta
     float frameDelta = deltaUpdate();
-    if (!isfinite(frameDelta)) {
-        frameDelta = 0;
-    }
 
     // Create the cairo surface on which we draw
     HDC hdc = GetDC(rt->hwnd);

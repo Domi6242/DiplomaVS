@@ -358,9 +358,6 @@ void renderFrame(D2dObj *rt) {
 
     // Update and get the delta
     float frameDelta = deltaUpdate();
-    if (!isfinite(frameDelta)) {
-        frameDelta = 0;
-    }
 
     // Prepare the window for drawing and clear the screen
     rt->pRenderTarget->BeginDraw();

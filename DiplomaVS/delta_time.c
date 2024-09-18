@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <math.h>
 #include <profileapi.h>
+#include <sysinfoapi.h>
 
 static LARGE_INTEGER d_frequency, d_start, d_end, d_counts, d_fps, d_ms;
 
@@ -19,4 +20,8 @@ float deltaUpdate() {
         return delta_seconds;
     }
     return 0;
+}
+
+unsigned long long getMilis() {
+    return GetTickCount64();
 }

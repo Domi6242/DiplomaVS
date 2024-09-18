@@ -13,8 +13,6 @@ extern "C" {
 #include "perf_tracker.h"
 }
 
-Test currentRuningTest = TEST_SHAPES;
-
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     D2dObj *window = (D2dObj *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 
@@ -35,6 +33,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         perfStop();
         break;
     case WM_KEYUP:
+        if (window->running_test == -1) {
+            break;
+        }
+
         switch (wParam) {
         case '1':
             window->running_test = 1;
@@ -47,6 +49,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             break;
         case '0':
             window->running_test = 0;
+            break;
+        case ' ':
+            window->running_test = -1;
             break;
         default:
             break;

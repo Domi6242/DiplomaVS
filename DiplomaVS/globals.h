@@ -1,13 +1,13 @@
 #pragma once
 
-#if defined(_WIN32)
+#ifdef DOMI_RAYLIB
 #define NOGDI   // All GDI defines and routines
 #define NOUSER  // All USER defines and routines
 #endif
 
 #include <Windows.h>  // or any library that uses Windows.h
 
-#if defined(_WIN32)  // raylib uses these names as function parameters
+#ifdef DOMI_RAYLIB  // raylib uses these names as function parameters
 #undef near
 #undef far
 #endif
@@ -37,24 +37,15 @@
 #define TEXT_SIZE_MAX 72.0f
 #define TEXT_REPEAT_LINES 10
 
+// Tests defines
+#define TEST_TIME_MS (10 * 1000)
+
 #define M_PI 3.14159265358979323846f
 #define RADDEG(x) (x * 57.295779513082320876798154814105f)
 
 typedef unsigned char byte;
 
-typedef enum Test {
-    TEST_SHAPES,
-    TEST_TEXT,
-    TEST_IMAGE,
-    TEST_COUNT
-} Test;
-
-typedef enum TestShapes {
-    SHAPES_X,
-    SHAPES_COUNT
-} TestShapes;
-
-static const int shapesXPerFramePerTest[] = { 100, 1000, 10000, 1000000 };
+static const int shapesXPerFramePerTest[] = { 0, 1000, 5000, 10000, 20000, 50000};
 static const int shapesXTestCounts = sizeof(shapesXPerFramePerTest) / sizeof(shapesXPerFramePerTest[0]);
 
 static const char* testImagePath = "C:\\Users\\Dev\\Documents\\DiplomaVS\\media\\fops.png";

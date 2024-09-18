@@ -1,6 +1,10 @@
 #pragma once
 #ifdef DOMI_DIRECT2D
 
+extern "C" {
+#include "test.h"
+}
+
 #include <Windows.h>
 #include <d2d1.h>
 #include <d2d1helper.h>
@@ -36,6 +40,7 @@ struct D2dObj {
     float textSize;
     float textScaleSpeed;
 
+    Test test;
     int running_test;
 };
 

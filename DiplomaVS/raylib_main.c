@@ -21,19 +21,11 @@
 #include "perf_tracker.h"
 #include "raylib_render.h"
 
-Test currentRuningTest = TEST_SHAPES;
-
 int main(int argc, LPWSTR argv[]) {
     (void)argc;
     srand((unsigned int)time(0));
 
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Raylib Example");
-
-    if (!logInit(argv[0])) {
-        wprintf(L"Write init failed!\n");
-        system("pause");
-        return 1;
-    }
 
     RaylibObj raylibObj;
 
@@ -41,22 +33,12 @@ int main(int argc, LPWSTR argv[]) {
     init_raylib(&raylibObj);
     perfInit();
     while (!WindowShouldClose()) {
-        perfStart();
         renderFrame(&raylibObj);
-        perfStop();
     }
 
     // De-Initialization
     // Close window and OpenGL context
     CloseWindow();
-
-    logWriteLogSection(L"Section 1: Shapes");
-
-    if (!logClose()) {
-        wprintf(L"Close failed!\n");
-        system("pause");
-        return 1;
-    }
 
     return 0;
 }

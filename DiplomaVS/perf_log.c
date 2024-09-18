@@ -7,6 +7,7 @@
 #include <wchar.h>
 
 #include "perf_tracker.h"
+#include <corecrt.h>
 
 #define LOG_BUFF_LEN 4096
 

@@ -9,8 +9,6 @@
 #include "perf_tracker.h"
 #include <processthreadsapi.h>
 
-Test currentRuningTest = TEST_SHAPES;
-
 LPCWSTR gMainCLassName = L"Cairo Example";
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -32,6 +30,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         perfStop();
         break;
     case WM_KEYUP:
+        if (cairoObj->running_test == -1) {
+            break;
+        }
+
         switch (wParam) {
         case '1':
             cairoObj->running_test = 1;
@@ -44,6 +46,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             break;
         case '0':
             cairoObj->running_test = 0;
+            break;
+        case ' ':
+            cairoObj->running_test = -1;
             break;
         default:
             break;
@@ -116,8 +121,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     perfInit();
 
-    HANDLE PerformanceDataHandle;
-    EnableThreadProfiling(GetCurrentThread(), 0, 0, &PerformanceDataHandle);
     // Step 3: The Message Loop
     MSG msg;
     while (1) {

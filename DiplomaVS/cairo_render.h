@@ -3,6 +3,7 @@
 #ifdef DOMI_CAIRO
 #include <Windows.h>
 #include <cairo.h>
+#include "test.h"
 
 typedef struct CairoImage {
     cairo_surface_t *source;
@@ -26,6 +27,7 @@ typedef struct CairoObj {
     float textSize;
     float textScaleSpeed;
 
+    Test test;
     int running_test;
 } CairoObj;
 

@@ -9,6 +9,7 @@
 #include "delta_time.h"
 #include "globals.h"
 #include "shape_generator.h"
+#include "test.h"
 
 void init_cairo(CairoObj *rt) {
     // Skip if already initialised
@@ -41,6 +42,8 @@ void init_cairo(CairoObj *rt) {
     // Resize the source image and set it's origin to be centered
     cairo_surface_set_device_offset(rt->test_image.source, src_width / 2.0, src_height / 2.0);
     cairo_surface_set_device_scale(rt->test_image.source, 1.0 / scale_factor, 1.0 / scale_factor);
+
+    rt->test = test_init();
 
     // Start frame delta timer
     deltaInit();
@@ -83,8 +86,8 @@ static void draw_triangle(CairoObj *rt, ShapeTriangle triangle) {
     cairo_stroke(rt->bufferContext);
 }
 
-static void test_shapes(CairoObj *rt) {
-    for (int i = 0; i < 1000; i++) {
+static void test_shapes(CairoObj *rt, int shape_num) {
+    for (int i = 0; i < shape_num; i++) {
         switch (i % 3) {
         case 0:
             draw_rectangle(rt, generateRectangle());
@@ -156,6 +159,43 @@ void deinit_cairo(CairoObj *rt) {
     //cairo_destroy(rt->test_image.source); 
 }
 
+static void run_tests(CairoObj *rt, float delta) {
+    // Initialisation
+    if (rt->test.current_task == TEST_NONE) {
+        rt->test = test_init();
+    }
+
+    // Update
+    int test_done = test_update(&rt->test, delta);
+
+    // Finalise
+    if (test_done) {
+        rt->running_test = 0;
+        return;
+    }
+
+    // Draw
+    switch (rt->test.current_task) {
+    case TEST_SHAPES_1:
+    case TEST_SHAPES_2:
+    case TEST_SHAPES_3:
+    case TEST_SHAPES_4:
+    case TEST_SHAPES_5:
+        test_shapes(rt, shapesXPerFramePerTest[rt->test.current_task]);
+        break;
+    case TEST_IMAGE:
+        test_image(rt, delta);
+        break;
+    case TEST_TEXT:
+        test_text(rt, delta);
+        break;
+    default:
+        break;
+    }
+
+    //draw_text(rt, 10.0, 30.0, "Running Tests", 20.0);
+}
+
 void render_frame(CairoObj *rt) {
     init_cairo(rt);
 
@@ -181,13 +221,16 @@ void render_frame(CairoObj *rt) {
         draw_text(rt, 5, 42, "Use keys 1, 2, 3 to cycle through the tests", 32);
         break;
     case 1:
-        test_shapes(rt);
+        test_shapes(rt, 1000);
         break;
     case 2:
         test_image(rt, frameDelta);
         break;
     case 3:
         test_text(rt, frameDelta);
+        break;
+    case -1:
+        run_tests(rt, frameDelta);
         break;
     default:
         break;

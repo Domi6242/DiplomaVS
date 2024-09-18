@@ -7,6 +7,7 @@
 #include "delta_time.h"
 #include "globals.h"
 #include "shape_generator.h"
+#include "test.h"
 
 // silly macro to convert rgba struct to raylib color struct
 #define RGBA_TO_RAYLIB(c) ((Color){(byte)(c.r*255.0f + .5f), (byte)(c.g*255.0f + .5f), (byte)(c.b*255.0f + .5f), (byte)(c.a*255.0f + .5f)})
@@ -29,7 +30,7 @@ void init_raylib(RaylibObj *rt) {
     double ratio_x = (double)WINDOW_WIDTH / (double)img.width;
     double ratio_y = (double)WINDOW_HEIGHT / (double)img.height;
     double scale_factor = ratio_x < ratio_y ? ratio_x : ratio_y;
-    ImageResize(&img, img.width * scale_factor, img.height * scale_factor);
+    ImageResize(&img, (int)(img.width * scale_factor), (int)(img.height * scale_factor));
 
     // load the image into memory as a texture
     rt->testImage = LoadTextureFromImage(img);
@@ -39,6 +40,8 @@ void init_raylib(RaylibObj *rt) {
     rt->customFont = LoadFont(testFontPath);
     GenTextureMipmaps(&rt->customFont.texture);
     SetTextureFilter(rt->customFont.texture, TEXTURE_FILTER_TRILINEAR);
+
+    rt->test = test_init();
 
     // Start frame delta timer
     deltaInit();
@@ -70,8 +73,8 @@ static void draw_triangle(ShapeTriangle triangle) {
     );
 }
 
-static void test_shapes() {
-    for (int i = 0; i < 1000; i++) {
+static void test_shapes(int shapes_num) {
+    for (int i = 0; i < shapes_num; i++) {
         switch (i % 3) {
         case 0:
             draw_rectangle(generateRectangle());
@@ -136,6 +139,41 @@ static void test_text(RaylibObj *rt, float delta) {
     }
 }
 
+static void run_tests(RaylibObj *rt, float delta) {
+    // Initialisation
+    if (rt->test.current_task == TEST_NONE) {
+        rt->test = test_init();
+    }
+
+    // Update
+    int test_done = test_update(&rt->test, delta);
+
+    // Finalise
+    if (test_done) {
+        rt->running_test = 0;
+        return;
+    }
+
+    // Draw
+    switch (rt->test.current_task) {
+    case TEST_SHAPES_1:
+    case TEST_SHAPES_2:
+    case TEST_SHAPES_3:
+    case TEST_SHAPES_4:
+    case TEST_SHAPES_5:
+        test_shapes(shapesXPerFramePerTest[rt->test.current_task]);
+        break;
+    case TEST_IMAGE:
+        test_image(rt, delta);
+        break;
+    case TEST_TEXT:
+        test_text(rt, delta);
+        break;
+    default:
+        break;
+    }
+}
+
 void renderFrame(RaylibObj *rt) {
     // Update and get the delta
     float frameDelta = deltaUpdate();
@@ -149,6 +187,8 @@ void renderFrame(RaylibObj *rt) {
         rt->running_test = 3;
     } else if (IsKeyReleased(KEY_ZERO)) {
         rt->running_test = 0;
+    } else if (IsKeyReleased(KEY_SPACE)) {
+        rt->running_test = -1;
     }
 
     // Draw
@@ -160,13 +200,16 @@ void renderFrame(RaylibObj *rt) {
         DrawTextEx(rt->customFont, "Use keys 1, 2, 3 to cycle through the tests", (Vector2) { 10, 10 }, 32, 0.0f, BLACK);
         break;
     case 1:
-        test_shapes();
+        test_shapes(1000);
         break;
     case 2:
         test_image(rt, frameDelta);
         break;
     case 3:
         test_text(rt, frameDelta);
+        break;
+    case -1:
+        run_tests(rt, frameDelta);
         break;
     default:
         break;

@@ -295,6 +295,7 @@
     <ClCompile Include="raylib_main.c" />
     <ClCompile Include="raylib_render.c" />
     <ClCompile Include="shape_generator.c" />
+    <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cairo_render.h" />
@@ -305,6 +306,7 @@
     <ClInclude Include="perf_tracker.h" />
     <ClInclude Include="raylib_render.h" />
     <ClInclude Include="shape_generator.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

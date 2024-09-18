@@ -13,11 +13,13 @@ extern "C" {
 #include "delta_time.h"
 #include "globals.h"
 #include "shape_generator.h"
+#include "test.h"
 #include <intsafe.h>
 #include <WTypesbase.h>
 #include <combaseapi.h>
 #include <dcommon.h>
 #include <Unknwnbase.h>
+#include <basetsd.h>
 }
 
 void releaseD2D1Window(D2dObj *rt) {
@@ -56,7 +58,7 @@ HRESULT createDeviceIndependentResources(D2dObj *rt) {
     if (SUCCEEDED(hr)) {
         hr = rt->pDWriteFactory->CreateTextLayout(
             testTextW,           // The string to be laid out and formatted.
-            str_len,      // The length of the string.
+            (UINT32)str_len,      // The length of the string.
             rt->pTextFormat,     // The text format to apply to the string (contains
             // font information, etc).
             WINDOW_WIDTH * 10,   // The width of the layout box.
@@ -112,6 +114,8 @@ HRESULT createDeviceResources(D2dObj *rt) {
             D2D1::ColorF(D2D1::ColorF::Black), &rt->pTextBrush
         );
     }
+
+    rt->test = test_init();
 
     // Start frame delta timer
     if (SUCCEEDED(hr)) {
@@ -251,9 +255,9 @@ static void draw_triangle(D2dObj *rt, ShapeTriangle triangle) {
     }
 }
 
-static void test_shapes(D2dObj *rt) {
+static void test_shapes(D2dObj *rt, int shape_num) {
     // Loop through all the shapes
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < shape_num; i++) {
         switch (i % 3) {
         case 0:
             draw_rect(rt, generateRectangle());
@@ -349,6 +353,43 @@ static void test_text(D2dObj *rt, float delta) {
     }
 }
 
+static void run_tests(D2dObj *rt, float delta) {
+    // Initialisation
+    if (rt->test.current_task == TEST_NONE) {
+        rt->test = test_init();
+    }
+
+    // Update
+    int test_done = test_update(&rt->test, delta);
+
+    // Finalise
+    if (test_done) {
+        rt->running_test = 0;
+        return;
+    }
+
+    // Draw
+    switch (rt->test.current_task) {
+    case TEST_SHAPES_1:
+    case TEST_SHAPES_2:
+    case TEST_SHAPES_3:
+    case TEST_SHAPES_4:
+    case TEST_SHAPES_5:
+        test_shapes(rt, shapesXPerFramePerTest[rt->test.current_task]);
+        break;
+    case TEST_IMAGE:
+        test_image(rt, delta);
+        break;
+    case TEST_TEXT:
+        test_text(rt, delta);
+        break;
+    default:
+        break;
+    }
+
+    //draw_text(rt, 10.0, 30.0, "Running Tests", 20.0);
+}
+
 void renderFrame(D2dObj *rt) {
     HRESULT hr = S_OK;
     hr = createDeviceResources(rt);
@@ -370,13 +411,16 @@ void renderFrame(D2dObj *rt) {
         draw_text(rt, L"Use keys 1, 2, 3 to cycle through the tests", 10.0f, 10.0f, 32.0f);
         break;
     case 1:
-        test_shapes(rt);
+        test_shapes(rt, 1000);
         break;
     case 2:
         test_image(rt, frameDelta);
         break;
     case 3:
         test_text(rt, frameDelta);
+        break;
+    case -1:
+        run_tests(rt, frameDelta);
         break;
     default:
         break;

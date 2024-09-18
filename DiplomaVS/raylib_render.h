@@ -2,6 +2,7 @@
 
 #ifdef DOMI_RAYLIB
 #include <raylib.h>
+#include "test.h"
 
 typedef struct RaylibObj {
     Texture2D testImage;
@@ -14,6 +15,7 @@ typedef struct RaylibObj {
     float textSize;
     float textScaleSpeed;
 
+    Test test;
     int running_test;
 } RaylibObj;
 

@@ -3,7 +3,6 @@
 
 #include <cairo.h>
 #include <cairo-win32.h>
-#include <math.h>
 #include <windows.h>
 
 #include "delta_time.h"
@@ -16,6 +15,8 @@ void init_cairo(CairoObj *rt) {
     if (rt->winSurface) {
         return;
     }
+
+    rt->shapeSelect = TEST_SHAPES_1;
 
     rt->imageAngleRad = IMAGE_ANGLE_RAD;
     rt->imageAngleSpeed = IMAGE_ROTATION_SPEED_RAD;
@@ -36,8 +37,8 @@ void init_cairo(CairoObj *rt) {
     double ratio_x = (double)WINDOW_WIDTH / (double)src_width;
     double ratio_y = (double)WINDOW_HEIGHT / (double)src_height;
     double scale_factor = ratio_x < ratio_y ? ratio_x : ratio_y;
-    rt->test_image.width = src_width / scale_factor;
-    rt->test_image.height = src_height / scale_factor;
+    rt->test_image.width = (int)(src_width / scale_factor);
+    rt->test_image.height = (int)(src_height / scale_factor);
 
     // Resize the source image and set it's origin to be centered
     cairo_surface_set_device_offset(rt->test_image.source, src_width / 2.0, src_height / 2.0);
@@ -221,7 +222,7 @@ void render_frame(CairoObj *rt) {
         draw_text(rt, 5, 42, "Use keys 1, 2, 3 to cycle through the tests", 32);
         break;
     case 1:
-        test_shapes(rt, 1000);
+        test_shapes(rt, shapesXPerFramePerTest[rt->shapeSelect]);
         break;
     case 2:
         test_image(rt, frameDelta);

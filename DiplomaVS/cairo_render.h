@@ -17,6 +17,8 @@ typedef struct CairoObj {
     cairo_t *bufferContext;
     cairo_t *winContext;
 
+    int shapeSelect;
+
     //cairo_surface_t *testImage;
     CairoImage test_image;
     float imageAngleRad;

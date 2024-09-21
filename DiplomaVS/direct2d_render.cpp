@@ -77,6 +77,8 @@ HRESULT createDeviceResources(D2dObj *rt) {
         return hr;
     }
 
+    rt->shapeSelect = TEST_SHAPES_1;
+
     rt->imageAngleRad = IMAGE_ANGLE_RAD;
     rt->imageAngleSpeed = IMAGE_ROTATION_SPEED_RAD;
     rt->imageScale = IMAGE_SCALE;
@@ -411,7 +413,7 @@ void renderFrame(D2dObj *rt) {
         draw_text(rt, L"Use keys 1, 2, 3 to cycle through the tests", 10.0f, 10.0f, 32.0f);
         break;
     case 1:
-        test_shapes(rt, 1000);
+        test_shapes(rt, shapesXPerFramePerTest[rt->shapeSelect]);
         break;
     case 2:
         test_image(rt, frameDelta);

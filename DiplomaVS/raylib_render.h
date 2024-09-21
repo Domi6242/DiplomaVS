@@ -5,6 +5,8 @@
 #include "test.h"
 
 typedef struct RaylibObj {
+    int shapeSelect;
+
     Texture2D testImage;
     float imageAngleRad;
     float imageAngleSpeed;

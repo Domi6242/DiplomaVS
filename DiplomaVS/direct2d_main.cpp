@@ -11,6 +11,7 @@ extern "C" {
 #include "globals.h"
 #include "perf_log.h"
 #include "perf_tracker.h"
+#include "test.h"
 }
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -52,6 +53,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             break;
         case ' ':
             window->running_test = -1;
+            break;
+        case VK_OEM_PLUS:
+            window->shapeSelect++;
+            if (window->shapeSelect > TEST_SHAPES_5) {
+                window->shapeSelect = TEST_SHAPES_5;
+            }
+            break;
+        case VK_OEM_MINUS:
+            window->shapeSelect--;
+            if (window->shapeSelect < TEST_SHAPES_1) {
+                window->shapeSelect = TEST_SHAPES_1;
+            }
             break;
         default:
             break;

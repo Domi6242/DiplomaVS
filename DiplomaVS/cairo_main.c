@@ -8,6 +8,7 @@
 #include "perf_log.h"
 #include "perf_tracker.h"
 #include <processthreadsapi.h>
+#include "test.h"
 
 LPCWSTR gMainCLassName = L"Cairo Example";
 
@@ -49,6 +50,18 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             break;
         case ' ':
             cairoObj->running_test = -1;
+            break;
+        case VK_OEM_PLUS:
+            cairoObj->shapeSelect++;
+            if (cairoObj->shapeSelect > TEST_SHAPES_5) {
+                cairoObj->shapeSelect = TEST_SHAPES_5;
+            }
+            break;
+        case VK_OEM_MINUS:
+            cairoObj->shapeSelect--;
+            if (cairoObj->shapeSelect < TEST_SHAPES_1) {
+                cairoObj->shapeSelect = TEST_SHAPES_1;
+            }
             break;
         default:
             break;

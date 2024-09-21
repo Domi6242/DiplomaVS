@@ -13,6 +13,8 @@
 #define RGBA_TO_RAYLIB(c) ((Color){(byte)(c.r*255.0f + .5f), (byte)(c.g*255.0f + .5f), (byte)(c.b*255.0f + .5f), (byte)(c.a*255.0f + .5f)})
 
 void init_raylib(RaylibObj *rt) {
+    rt->shapeSelect = TEST_SHAPES_1;
+
     rt->imageAngleRad = IMAGE_ANGLE_RAD;
     rt->imageAngleSpeed = IMAGE_ROTATION_SPEED_RAD;
     rt->imageScale = IMAGE_SCALE;
@@ -189,6 +191,16 @@ void renderFrame(RaylibObj *rt) {
         rt->running_test = 0;
     } else if (IsKeyReleased(KEY_SPACE)) {
         rt->running_test = -1;
+    } else if (IsKeyReleased(KEY_EQUAL)) {
+        rt->shapeSelect++;
+        if (rt->shapeSelect > TEST_SHAPES_5) {
+            rt->shapeSelect = TEST_SHAPES_5;
+        }
+    } else if (IsKeyReleased(KEY_MINUS)) {
+        rt->shapeSelect--;
+        if (rt->shapeSelect < TEST_SHAPES_1) {
+            rt->shapeSelect = TEST_SHAPES_1;
+        }
     }
 
     // Draw
@@ -200,7 +212,7 @@ void renderFrame(RaylibObj *rt) {
         DrawTextEx(rt->customFont, "Use keys 1, 2, 3 to cycle through the tests", (Vector2) { 10, 10 }, 32, 0.0f, BLACK);
         break;
     case 1:
-        test_shapes(1000);
+        test_shapes(shapesXPerFramePerTest[rt->shapeSelect]);
         break;
     case 2:
         test_image(rt, frameDelta);

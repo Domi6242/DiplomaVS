@@ -25,6 +25,8 @@ struct D2dObj {
     ID2D1SolidColorBrush *pFillBrush;
     ID2D1SolidColorBrush *pBorderBrush;
 
+    int shapeSelect;
+
     ID2D1Bitmap *testImage;
 
     float imageAngleRad;

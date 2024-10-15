@@ -1,13 +1,13 @@
 #ifdef DOMI_RAYLIB
 #include "raylib_render.h"
 
-#include <math.h>
 #include <raylib.h>
 
 #include "delta_time.h"
 #include "globals.h"
 #include "shape_generator.h"
 #include "test.h"
+#include <rpcndr.h>
 
 // silly macro to convert rgba struct to raylib color struct
 #define RGBA_TO_RAYLIB(c) ((Color){(byte)(c.r*255.0f + .5f), (byte)(c.g*255.0f + .5f), (byte)(c.b*255.0f + .5f), (byte)(c.a*255.0f + .5f)})

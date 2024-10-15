@@ -5,10 +5,8 @@
 
 #include "cairo_render.h"
 #include "globals.h"
-#include "perf_log.h"
-#include "perf_tracker.h"
-#include <processthreadsapi.h>
 #include "test.h"
+#include <basetsd.h>
 
 LPCWSTR gMainCLassName = L"Cairo Example";
 
@@ -24,11 +22,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         PostQuitMessage(0);
         break;
     case WM_PAINT:
-        perfStart();
         BeginPaint(hwnd, &ps);
         render_frame(cairoObj);
         EndPaint(hwnd, &ps);
-        perfStop();
         break;
     case WM_KEYUP:
         if (cairoObj->running_test == -1) {
@@ -78,16 +74,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     (void)hPrevInstance;
     srand((unsigned int)time(0));
 
-    // initialise log file
-    WCHAR szFileName[MAX_PATH];
-    GetModuleFileName(NULL, szFileName, MAX_PATH);
-    if (!logInit(szFileName)) {
-        system("pause");
-        return 1;
-    }
-
     // prepare for window initialisation
-    WNDCLASSEX wc;
+    WNDCLASSEX wc = {0};
     HWND hwnd;
 
     // Step 1: Registering the Window Class
@@ -132,8 +120,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    perfInit();
-
     // Step 3: The Message Loop
     MSG msg;
     while (1) {
@@ -150,13 +136,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 
     deinit_cairo(&cairoObj);
-
-    logWriteLogSection(L"Section 1: Shapes");
-
-    if (!logClose()) {
-        system("pause");
-        return 1;
-    }
 
     return 0;
 }

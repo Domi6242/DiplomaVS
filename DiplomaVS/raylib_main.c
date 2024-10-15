@@ -1,6 +1,5 @@
 #ifdef DOMI_RAYLIB
 #include <raylib.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -17,8 +16,6 @@
 #endif
 
 #include "globals.h"
-#include "perf_log.h"
-#include "perf_tracker.h"
 #include "raylib_render.h"
 
 int main(int argc, LPWSTR argv[]) {
@@ -31,7 +28,6 @@ int main(int argc, LPWSTR argv[]) {
 
     // Main loop
     init_raylib(&raylibObj);
-    perfInit();
     while (!WindowShouldClose()) {
         renderFrame(&raylibObj);
     }

@@ -3,15 +3,13 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
 
 #include "direct2d_render.h"
 
 extern "C" {
 #include "globals.h"
-#include "perf_log.h"
-#include "perf_tracker.h"
 #include "test.h"
+#include <basetsd.h>
 }
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -28,10 +26,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         // initDirect2d(window);
         break;
     case WM_PAINT:
-        perfStart();
         renderFrame(window);
         ValidateRect(hwnd, NULL);
-        perfStop();
         break;
     case WM_KEYUP:
         if (window->running_test == -1) {
@@ -84,17 +80,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     (void)hPrevInstance;
     srand((unsigned int)time(0));
 
-    // initialise log file
-    WCHAR szFileName[MAX_PATH];
-    GetModuleFileName(NULL, szFileName, MAX_PATH);
-    if (!logInit(szFileName)) {
-        wprintf(L"Write init failed!\n");
-        system("pause");
-        return 1;
-    }
-
     // prepare for window initialisation
-    WNDCLASSEX wc;
+    WNDCLASSEX wc = {0};
     HWND hwnd;
     HRESULT hr;
 
@@ -152,9 +139,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    // initialise performance measuring
-    perfInit();
-
     // Step 3: The Message Loop
     MSG msg;
     while (1) {
@@ -168,15 +152,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         } else {
             InvalidateRect(hwnd, NULL, FALSE);
         }
-    }
-
-    // write section results
-    logWriteLogSection((LPWSTR)L"Section 1: Shapes");
-
-    if (!logClose()) {
-        wprintf(L"Close failed!\n");
-        system("pause");
-        return 1;
     }
 
     return 0;

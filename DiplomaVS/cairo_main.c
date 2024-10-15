@@ -6,6 +6,7 @@
 #include "cairo_render.h"
 #include "globals.h"
 #include "test.h"
+#include "perf_counter.h"
 #include <basetsd.h>
 
 LPCWSTR gMainCLassName = L"Cairo Example";
@@ -45,7 +46,28 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             cairoObj->running_test = 0;
             break;
         case ' ':
-            cairoObj->running_test = -1;
+            //cairoObj->running_test = -1;
+            if (cairoObj->is_perf == 0) {
+                cairoObj->is_perf = 1;
+                perf_counter_init(&cairoObj->perf);
+            } else {
+                cairoObj->is_perf = 0;
+                perf_counter_end(&cairoObj->perf);
+
+                size_t len = 256;
+                char buff[256];
+                perf_counter_output(&cairoObj->perf, buff, len);
+                wchar_t wtext[256];
+                size_t tmp;
+                mbstowcs_s(&tmp, wtext, len, buff, len);
+
+                MessageBox(
+                    NULL,
+                    (LPCWSTR)wtext,
+                    (LPCWSTR)L"Performance Results",
+                    MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON1
+                );
+            }
             break;
         case VK_OEM_PLUS:
             cairoObj->shapeSelect++;

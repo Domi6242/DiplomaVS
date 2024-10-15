@@ -3,6 +3,7 @@
 
 extern "C" {
 #include "test.h"
+#include "perf_counter.h"
 }
 
 #include <Windows.h>
@@ -44,6 +45,9 @@ struct D2dObj {
 
     Test test;
     int running_test;
+
+    int is_perf;
+    PerfCounter perf;
 };
 
 HRESULT loadImageResource(D2dObj *rt);

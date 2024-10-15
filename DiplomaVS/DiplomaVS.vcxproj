@@ -290,6 +290,7 @@
     <ClCompile Include="delta_time.c" />
     <ClCompile Include="direct2d_main.cpp" />
     <ClCompile Include="direct2d_render.cpp" />
+    <ClCompile Include="perf_counter.c" />
     <ClCompile Include="raylib_main.c" />
     <ClCompile Include="raylib_render.c" />
     <ClCompile Include="shape_generator.c" />
@@ -300,6 +301,7 @@
     <ClInclude Include="delta_time.h" />
     <ClInclude Include="direct2d_render.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="perf_counter.h" />
     <ClInclude Include="raylib_render.h" />
     <ClInclude Include="shape_generator.h" />
     <ClInclude Include="test.h" />

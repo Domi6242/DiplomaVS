@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <cairo.h>
 #include "test.h"
+#include "perf_counter.h"
 
 typedef struct CairoImage {
     cairo_surface_t *source;
@@ -31,6 +32,9 @@ typedef struct CairoObj {
 
     Test test;
     int running_test;
+
+    int is_perf;
+    PerfCounter perf;
 } CairoObj;
 
 void init_cairo(CairoObj *rt);

@@ -9,6 +9,7 @@
 #include "globals.h"
 #include "shape_generator.h"
 #include "test.h"
+#include "perf_counter.h"
 
 void init_cairo(CairoObj *rt) {
     // Skip if already initialised
@@ -45,6 +46,7 @@ void init_cairo(CairoObj *rt) {
     cairo_surface_set_device_scale(rt->test_image.source, 1.0 / scale_factor, 1.0 / scale_factor);
 
     rt->test = test_init();
+    rt->is_perf = 0;
 
     // Start frame delta timer
     deltaInit();
@@ -249,6 +251,10 @@ void render_frame(CairoObj *rt) {
     cairo_surface_destroy(rt->winSurface);
 
     ReleaseDC(rt->hwnd, hdc);
+
+    if (rt->is_perf == 1) {
+        perf_counter_frame_update(&rt->perf);
+    }
 }
 
 #endif  // DOMI_CAIRO

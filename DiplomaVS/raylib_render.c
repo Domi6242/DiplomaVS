@@ -7,6 +7,7 @@
 #include "globals.h"
 #include "shape_generator.h"
 #include "test.h"
+#include "perf_counter.h"
 #include <rpcndr.h>
 
 // silly macro to convert rgba struct to raylib color struct
@@ -24,6 +25,7 @@ void init_raylib(RaylibObj *rt) {
     rt->textScaleSpeed = TEXT_SCALE_SPEED;
 
     rt->running_test = 0;
+    rt->is_perf = 0;
 
     // Load image into texture in video memory
     Image img = LoadImage(testImagePath);
@@ -190,7 +192,19 @@ void renderFrame(RaylibObj *rt) {
     } else if (IsKeyReleased(KEY_ZERO)) {
         rt->running_test = 0;
     } else if (IsKeyReleased(KEY_SPACE)) {
-        rt->running_test = -1;
+        //rt->running_test = -1;
+        if (rt->is_perf == 0) {
+            rt->is_perf = 1;
+            perf_counter_init(&rt->perf);
+        } else {
+            rt->is_perf = 0;
+            perf_counter_end(&rt->perf);
+
+            size_t len = 256;
+            char buff[256];
+            perf_counter_output(&rt->perf, buff, len);
+            TraceLog(LOG_INFO, buff);
+        }
     } else if (IsKeyReleased(KEY_EQUAL)) {
         rt->shapeSelect++;
         if (rt->shapeSelect > TEST_SHAPES_5) {
@@ -228,5 +242,9 @@ void renderFrame(RaylibObj *rt) {
     }
 
     EndDrawing();
+
+    if (rt->is_perf == 1) {
+        perf_counter_frame_update(&rt->perf);
+    }
 }
 #endif // DOMI_RAYLIB

@@ -3,6 +3,7 @@
 #ifdef DOMI_RAYLIB
 #include <raylib.h>
 #include "test.h"
+#include "perf_counter.h"
 
 typedef struct RaylibObj {
     int shapeSelect;
@@ -19,6 +20,9 @@ typedef struct RaylibObj {
 
     Test test;
     int running_test;
+
+    int is_perf;
+    PerfCounter perf;
 } RaylibObj;
 
 void renderFrame(RaylibObj* rt);

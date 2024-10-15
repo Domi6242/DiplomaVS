@@ -20,6 +20,7 @@ extern "C" {
 #include <dcommon.h>
 #include <Unknwnbase.h>
 #include <basetsd.h>
+#include "perf_counter.h"
 }
 
 void releaseD2D1Window(D2dObj *rt) {
@@ -118,6 +119,7 @@ HRESULT createDeviceResources(D2dObj *rt) {
     }
 
     rt->test = test_init();
+    rt->is_perf = 0;
 
     // Start frame delta timer
     if (SUCCEEDED(hr)) {
@@ -433,6 +435,10 @@ void renderFrame(D2dObj *rt) {
     if (hr == D2DERR_RECREATE_TARGET) {
         hr = S_OK;
         discardDeviceResources(rt);
+    }
+
+    if (rt->is_perf == 1) {
+        perf_counter_frame_update(&rt->perf);
     }
 }
 #endif  // DOMI_DIRECT2D

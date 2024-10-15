@@ -9,6 +9,7 @@
 extern "C" {
 #include "globals.h"
 #include "test.h"
+#include "perf_counter.h"
 #include <basetsd.h>
 }
 
@@ -48,7 +49,28 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             window->running_test = 0;
             break;
         case ' ':
-            window->running_test = -1;
+            //window->running_test = -1;
+            if (window->is_perf == 0) {
+                window->is_perf = 1;
+                perf_counter_init(&window->perf);
+            } else {
+                window->is_perf = 0;
+                perf_counter_end(&window->perf);
+
+                size_t len = 256;
+                char buff[256];
+                perf_counter_output(&window->perf, buff, len);
+                wchar_t wtext[256];
+                size_t tmp;
+                mbstowcs_s(&tmp, wtext, len, buff, len);
+
+                MessageBox(
+                    NULL,
+                    (LPCWSTR)wtext,
+                    (LPCWSTR)L"Performance Results",
+                    MB_ICONINFORMATION | MB_OK | MB_DEFBUTTON1
+                );
+            }
             break;
         case VK_OEM_PLUS:
             window->shapeSelect++;

@@ -9,8 +9,6 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Cairo_Debug|x64 = Cairo_Debug|x64
 		Cairo_Debug|x86 = Cairo_Debug|x86
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Direct2d_Debug|x64 = Direct2d_Debug|x64
 		Direct2d_Debug|x86 = Direct2d_Debug|x86
 		Raylib_Debug|x64 = Raylib_Debug|x64
@@ -23,10 +21,6 @@ Global
 		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Cairo_Debug|x64.Build.0 = Cairo_Debug|x64
 		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Cairo_Debug|x86.ActiveCfg = Cairo_Debug|Win32
 		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Cairo_Debug|x86.Build.0 = Cairo_Debug|Win32
-		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Debug|x64.ActiveCfg = Debug|x64
-		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Debug|x64.Build.0 = Debug|x64
-		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Debug|x86.ActiveCfg = Debug|Win32
-		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Debug|x86.Build.0 = Debug|Win32
 		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Direct2d_Debug|x64.ActiveCfg = Direct2d_Debug|x64
 		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Direct2d_Debug|x64.Build.0 = Direct2d_Debug|x64
 		{4680460D-F7DC-4D79-B9DF-CB5F1E6F4E4A}.Direct2d_Debug|x86.ActiveCfg = Direct2d_Debug|Win32

@@ -21,12 +21,6 @@
     <ClCompile Include="delta_time.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="perf_log.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="perf_tracker.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="raylib_render.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,6 +42,9 @@
     <ClCompile Include="test.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="perf_counter.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="raylib_render.h">
@@ -59,13 +56,7 @@
     <ClInclude Include="globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="perf_tracker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="shape_generator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="perf_log.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cairo_render.h">
@@ -75,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="perf_counter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

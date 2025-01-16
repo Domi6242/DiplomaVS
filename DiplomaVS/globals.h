@@ -48,10 +48,10 @@ typedef unsigned char byte;
 static const int shapesXPerFramePerTest[] = { 0, 1000, 5000, 10000, 20000, 50000};
 static const int shapesXTestCounts = sizeof(shapesXPerFramePerTest) / sizeof(shapesXPerFramePerTest[0]);
 
-static const char* testImagePath = "C:\\Users\\Dev\\Documents\\DiplomaVS\\media\\fops.png";
-static LPCWSTR testImagePathW = L"C:\\Users\\Dev\\Documents\\DiplomaVS\\media\\fops.png";
+static const char* testImagePath = "C:\\Users\\Dev\\OneDrive - Univerza v Mariboru\\Dokumenti\\DiplomaVS\\media\\fops.png";
+static LPCWSTR testImagePathW = L"C:\\Users\\Dev\\OneDrive - Univerza v Mariboru\\Dokumenti\\DiplomaVS\\media\\fops.png";
 
 static const char* testText = "\"The quick brown fox jumps over the lazy dog0123456789\"";
 static LPCWSTR testTextW = L"\"The quick brown fox jumps over the lazy dog0123456789\"";
-static const char* testFontPath = "C:\\Users\\Dev\\Documents\\DiplomaVS\\media\\IosevkaEtoile-Regular.ttf";
-static LPCWSTR testFontPathW = L"C:\\Users\\Dev\\Documents\\DiplomaVS\\media\\IosevkaEtoile-Regular.ttf";
+static const char* testFontPath = "C:\\Users\\Dev\\OneDrive - Univerza v Mariboru\\Dokumenti\\DiplomaVS\\media\\IosevkaEtoile-Regular.ttf";
+static LPCWSTR testFontPathW = L"C:\\Users\\Dev\\OneDrive - Univerza v Mariboru\\Dokumenti\\DiplomaVS\\media\\IosevkaEtoile-Regular.ttf";

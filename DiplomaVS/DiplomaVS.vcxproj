@@ -258,12 +258,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>DOMI_RAYLIB;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Dev\Documents\DiplomaVS\EXTERNAL\raylib5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Dev\OneDrive - Univerza v Mariboru\Dokumenti\DiplomaVS\EXTERNAL\raylib5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Dev\Documents\DiplomaVS\EXTERNAL\raylib5\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Dev\OneDrive - Univerza v Mariboru\Dokumenti\DiplomaVS\EXTERNAL\raylib5\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>raylib.lib;gdi32.lib;msvcrt.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/NODEFAULTLIB:libcmt %(AdditionalOptions)</AdditionalOptions>
     </Link>
